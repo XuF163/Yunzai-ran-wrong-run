@@ -37,6 +37,33 @@ CPU:核心数量>=2 ，建议主频>=1.6Ghz
 ### 平台与群组  
 目前QQ频道、KOOK频道、米游社大别野以及web版云崽都是可以正常稳定运行的
 ### 自动化维护  
+#### winserver平台
+可以通过创建bat批处理文件搭配**开机启动项**和**自动任务**处理  
+以下演示在winserver2019下进行
+##### 添加开机启动项
+按下win + r
+![image](https://github.com/XuF163/Yunzai-ran-wrong-run/assets/121853480/d4b2f566-7f31-4a14-a33e-f295ccd30470)  
+输入以下路径并点击确定按钮  
+```
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp
+
+```
+在此目录下可以通过添加快捷方式实现开机自启动  
+![image](https://github.com/XuF163/Yunzai-ran-wrong-run/assets/121853480/69ff1f6c-5015-40f7-808c-ba8926a95dcb)  
+#### 添加计划任务  
+打开服务器管理器  
+![image](https://github.com/XuF163/Yunzai-ran-wrong-run/assets/121853480/014c1753-cddd-4eb3-a943-5b4de1b4c9ae)  
+点击工具-任务计划程序  
+![image](https://github.com/XuF163/Yunzai-ran-wrong-run/assets/121853480/937f5407-6075-4fe3-bab8-c0d6100e4dc6)
+在此处可以自行配置任务  
+![image](https://github.com/XuF163/Yunzai-ran-wrong-run/assets/121853480/9ef365c0-16e6-4850-87be-773cf0c4b046)  
+**以下**是几个本人常用的bat源码，可以**照抄**直接用，只需要新建txt-复制内容-修改后缀为bat即可  
+
+
+
+
+
+
 
 
 
