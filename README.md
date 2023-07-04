@@ -4,9 +4,6 @@
 > 有时间就更新，可能会介绍到卸崽跑路之后的问题  
 > 转载请注明出处并并保留此仓库链接即可      
 
-
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=2014336709&auto=1&height=66"></iframe>  
-
 ## sight to get服务器
 ### 硬件参考指标
 > 挂机器人不怎么挑设备，以下是本人建议的硬件性能指标，仅供参考
