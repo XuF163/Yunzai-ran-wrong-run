@@ -37,8 +37,10 @@ CPU:核心数量>=2 ，建议主频>=1.6Ghz
 
 ## 日常运行  
 ### 平台与群组  
-目前QQ频道、KOOK频道、米游社大别野以及web版云崽都是可以正常稳定运行的
+目前QQ频道、KOOK频道、米游社大别野以及web版云崽都是可以正常稳定运行的，可放心挂机。  
+如果你仍然试图部署QQ/微信群bot，请确保你的账号安全并尽量**不要让陌生人偷你的机器人**。
 ### 自动化维护  
+结合崽目前可能存在的一些不稳定性以及部分私有云管理员面临定期遭遇恶意断电的场景（如学校宿舍等）常见问题，可参考以下教程优化bot维护和使用体验。  
 #### winserver平台
 可以通过创建bat批处理文件搭配**开机启动项**和**自动任务**处理  
 以下演示在winserver2019下进行
@@ -59,7 +61,31 @@ C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp
 ![image](https://github.com/XuF163/Yunzai-ran-wrong-run/assets/121853480/937f5407-6075-4fe3-bab8-c0d6100e4dc6)
 在此处可以自行配置任务  
 ![image](https://github.com/XuF163/Yunzai-ran-wrong-run/assets/121853480/9ef365c0-16e6-4850-87be-773cf0c4b046)  
-**以下**是几个本人常用的bat源码，可以**照抄**直接用，只需要新建txt-复制内容-修改后缀为bat即可  
+**以下**是几个本人常用的bat源码，可以**照抄**直接用，只需要新建txt-复制内容-修改后缀为bat即可    
+**开机自启动**  
+```
+start C:\Program" "Files\Git\git-bash.exe --cd=C:\Users\Administrator\Desktop\Miao-Yunzai -c "node app"
+```
+>如果你使用默认设置安装git，那么直接使用此指令即可，否则请替换对应的文件路径。
+
+**git闪退自动处理**
+```
+:start
+choice /t 300 /d y /n >nul  #300可修改为检测间隔，可任意修改
+tasklist|find /i "git-bash.exe" 
+if %errorlevel%==0 ( 
+	echo "yes"
+) else (
+	echo "No" 
+	start Yzstart.bat  #Yzstart对应上一个脚本的文件名称
+)
+goto start
+```
+**注意**：需要将你写的bat的**快捷方式**加入计划任务/开机启动项才能启用你的维护脚本。  
+### Linux  
+这玩意稳得很，一般不需要单独的维护操作。
+### docker  
+推荐使用[trss-scripts](trss.me)进行管理，请确保你有足够的资源冗余来运行trss。
 
 
 
