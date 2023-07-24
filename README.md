@@ -86,11 +86,72 @@ goto start
 ```
 **注意**：需要将你写的bat的**快捷方式**加入计划任务/开机启动项才能启用你的维护脚本。  
 ### Linux  
-这玩意稳得很，一般不需要单独的维护操作。**后面有空再补一个定时脚本介绍吧**
+这玩意稳得很，一般不需要单独的维护操作。**后面有空再补一个定时脚本介绍吧**  
+对Linux服务器而言SSH客户端关闭后，崽就会自动关闭，这里推荐使用screen 和tmux 进行进程保活。
+
+（如果你使用手机部署，请勿参考）
+
+screen
+
+创建新终端并启动
+```
+scren -S  bot#bot可替换为任何你觉得好记的名字
+cd到云崽目录，启用redis持久化...
+node app
+```
+到这里就可以安心退出SSH客户端了，除非卡死或者风控，你的崽会继续运行
+
+回到进程
+```
+screen -r bot #bot可替换为任何你觉得好记的名字  
+如果失败了，则可能是由于你的本地终端异常关闭导致的
+screen -ls #查看进程 id
+screen -r -d +id号即可返回崽窗口
+```
+tmux
+
+安装命令
+```
+git clone https://github.com/tmux/tmux.git
+cd tmux
+sh autogen.sh
+./configure && make
+```
+或者
+```
+# Ubuntu 或 Debian
+$ sudo apt-get install tmux
+
+# CentOS 或 Fedora
+$ sudo yum install tmux
+```
+启动
+
+tmux
+
+退出
+```
+exit
+```
+创建新终端并启动
+```
+tmux new -s bot#bot可替换为任何你觉得好记的名字 
+cd到云崽目录，启用redis持久化...
+node app
+```
+返回
+```
+tmux attach -t bot#bot可替换为任何你觉得好记的名字
+```
+shell脚本编写
+
+点击此[链接](zhuanlan.zhihu.com/p/264346586)查看
 ### docker  
 推荐使用[trss-scripts](trss.me)进行管理，请确保你有足够的资源冗余来运行trss。  
 如果你尝试使用dockerfile构建，请注意权限问题。 
-推荐拉现成的docker，但请**谨慎使用来历不明的镜像**  
+推荐拉现成的docker，但请**谨慎使用来历不明的镜像**   
+
+此外，使用dockerfile构建可能产生权限问题。
 
 ## 网络与防火墙  
 >如果你有使用锅巴面板、GPT网页控制台或者MCSM等web服务进行操作，那么请看这里。
