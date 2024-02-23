@@ -9,5 +9,6 @@
 ```sh
 curl -L 'https://ghproxy.org/https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64' -o ./cloudflared
 chmod +x ./cloudflared  
-```
+```  
+
 ![image](https://github.com/XuF163/Yunzai-ran-wrong-run/blob/main/QQ%E6%88%AA%E5%9B%BE20240223095046.png)
