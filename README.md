@@ -1,4 +1,5 @@
 # Bot挂机指北  :从入门到跑路  
+![image](https://socialify.git.ci/XuF163/Yunzai-ran-wrong-run/image?description=1&font=Inter&issues=1&language=1&name=1&owner=1&pattern=Signal&pulls=1&stargazers=1&theme=Light)
 
 > 这是一个硬件向的bot挂机教程（家里云内容居多），供新手阅读以及参考。
 > 适用于适合Yunzai及其衍生项目挂机场景
