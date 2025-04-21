@@ -34,7 +34,7 @@ bot:
   maxRetry: .inf
   timeout: 30000
 token:
-  - 28524356:10235467:xxxxxxx:xxxxxxxxx:1:0
+  - 284522356:10235467:xxxxxxx:xxxxxxxxx:1:0
 
 ```  
 nginx配置  
@@ -78,7 +78,8 @@ server {
 
     # 反向代理 webhook 路径到应用程序监听的 8443 端口
     location /webhook {
-    	   mirror /_mirror_webhook_8091;
+        mirror /_mirror_webhook_8091;
+        mirror /_mirror_webhook_external_142;
         proxy_pass http://127.0.0.1:8090/webhook; 
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -101,6 +102,30 @@ server {
         # proxy_request_buffering off; # 考虑是否需要
         # proxy_http_version 1.1;
         # proxy_set_header Connection "";
+    }
+
+    location /_mirror_webhook_external_142 {
+        internal; # 关键：使其成为内部 location,虽然连接的是外网主机
+
+        # 代理到外部 HTTP 服务
+        proxy_pass http://ip:8090/webhook;
+
+        # --- 重要: 为外部目标设置正确的 Host Header ---
+        # $proxy_host 会自动使用 proxy_pass 中的主机名或 IP 和端口
+        proxy_set_header Host $proxy_host;
+        # 或者显式设置: proxy_set_header Host "ip:8090";
+
+        # 传递其他必要的头信息
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        # 可以传递原始 Host (如果目标需要)
+        # proxy_set_header X-Original-Host $host;
+        proxy_set_header X-Mirrored-Request "true"; # 标记为镜像请求
+
+        # 推荐与外部服务通信使用的设置
+        proxy_http_version 1.1;
+        proxy_set_header Connection ""; # 清除 Connection header，避免混淆
     }
 
 
