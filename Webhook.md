@@ -42,9 +42,9 @@ token:
 ```
 ##### 喵崽实现  
   总体思路：依赖切换到凉菜1.0.4+版本的qq-official-bot记得配置文件读写自行修改  
-  关于消息冲突推送问题请参阅[链接](https://github.com/zhinjs/qq-official-bot/pull/77) ，截至25-4-22 建议  
+  关于消息冲突推送问题请参阅[链接](https://github.com/zhinjs/qq-official-bot/pull/77) ，截至25-4-22 建议  /Miao-Yunzai/plugins/Lain-plugin/node_modules/qq-official-bot/lib/receivers下的
   ```  
-  /Miao-Yunzai/plugins/Lain-plugin/node_modules/qq-official-bot/lib/receivers下function webhookHandler的case constans_1.OpCode.DISPATCH:
+  function webhookHandler的case constans_1.OpCode.DISPATCH:
   ```
   修改为
   ```  
