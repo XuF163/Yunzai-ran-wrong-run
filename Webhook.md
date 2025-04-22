@@ -1,6 +1,7 @@
 ### 基于nginx的QQBot负载均衡   
-[![](https://mermaid.ink/img/pako:eNqdlG1P01AUx7_KzSUkI5bSlXVb-4I3ajQxSJM1wZi9qetla2At3nWKEhKYgo88LEwTDUiMW8QHJCQGlYL7Muvt9i28bfeEmwnzvtq95_875396z-4iTJkaghLMobt5ZKTQFV1NYzWbNABd8yq29JQ-rxoWUGSg5oDiaehOnlOtGRP30d28dssT3kzrxgII3Ud3MqY5y6YxUq0IL7IsO9LLTKq6EedEzgOdtVX3rFj7adefF9zCLxDyAv0YHWMT02C4i7I3uqjwP6mrC5YPlV93Q0kj0A8PAzmj5hAIS-C6QvueDpqggUCgyKMTE5dooxKQpxIKGGt2CUKePNEsS-OerONTAo1XO86jzfrhD3JUCMQMcE4L5KDSj6EuB0Can1ACNfuDu7V2nnAPnjm_V5tESzpKuVG_C79LZ3vdOSmBEGLTLAN4jgNTN0YAGOrcjrOzTw7KjbdbzummUz4i3-2OBS-XIv-ViuxW6k8-A_8Ggb-G_PnoTcR481Wr7pKXK6S6TA9qdoVsVEjpGEwnei6Gl7w7SZipWWQBZ7PYWF5pX067O_pRPEOOfeJ-eTFWO6u6pX2aDNSr72hm0F7dDa6tk6_vAwO-o-6DnvR-9qA4TUuOn5KVw0A0BNyPduNNGWhITVn6PdVCbbDVTGcuBnHaGfqLeO0uMaDbNnreL53Jge16_7YLuw0K_I9ZSra89hMpcitW__bJLe05xTOnuE929uiEuo-PXXub7O5BBqaxrkHJwnnEwCzCWdXbwkUPTkIrg7IoCSX6U0Mzan7OSsKksUQx-rrcNs1si8RmPp2B0ow6l6O7_LxGLTSf1vYpRoaG8GUzb1hQ4iOinwRKi3ABSoLAhuOxWETg-PFxISqEGfgAShGRFWJRLsqJghDlRS62xMCHflWOFcPhcTEqxjk-LkQjEYGBSNMtE08G77v_zC_9AWPmVrc?type=png)](https://mermaid-live.nodejs.cn/edit#pako:eNqdlG1P01AUx7_KzSUkI5bSlXVb-4I3ajQxSJM1wZi9qetla2At3nWKEhKYgo88LEwTDUiMW8QHJCQGlYL7Muvt9i28bfeEmwnzvtq95_875396z-4iTJkaghLMobt5ZKTQFV1NYzWbNABd8yq29JQ-rxoWUGSg5oDiaehOnlOtGRP30d28dssT3kzrxgII3Ud3MqY5y6YxUq0IL7IsO9LLTKq6EedEzgOdtVX3rFj7adefF9zCLxDyAv0YHWMT02C4i7I3uqjwP6mrC5YPlV93Q0kj0A8PAzmj5hAIS-C6QvueDpqggUCgyKMTE5dooxKQpxIKGGt2CUKePNEsS-OerONTAo1XO86jzfrhD3JUCMQMcE4L5KDSj6EuB0Can1ACNfuDu7V2nnAPnjm_V5tESzpKuVG_C79LZ3vdOSmBEGLTLAN4jgNTN0YAGOrcjrOzTw7KjbdbzummUz4i3-2OBS-XIv-ViuxW6k8-A_8Ggb-G_PnoTcR481Wr7pKXK6S6TA9qdoVsVEjpGEwnei6Gl7w7SZipWWQBZ7PYWF5pX067O_pRPEOOfeJ-eTFWO6u6pX2aDNSr72hm0F7dDa6tk6_vAwO-o-6DnvR-9qA4TUuOn5KVw0A0BNyPduNNGWhITVn6PdVCbbDVTGcuBnHaGfqLeO0uMaDbNnreL53Jge16_7YLuw0K_I9ZSra89hMpcitW__bJLe05xTOnuE929uiEuo-PXXub7O5BBqaxrkHJwnnEwCzCWdXbwkUPTkIrg7IoCSX6U0Mzan7OSsKksUQx-rrcNs1si8RmPp2B0ow6l6O7_LxGLTSf1vYpRoaG8GUzb1hQ4iOinwRKi3ABSoLAhuOxWETg-PFxISqEGfgAShGRFWJRLsqJghDlRS62xMCHflWOFcPhcTEqxjk-LkQjEYGBSNMtE08G77v_zC_9AWPmVrc)  
-#### 适配器配置
+ 
+#### 适配器配置  
+##### TRSS-小叶版适配器
 ```
 //QQBot.yaml  
 permission: master
@@ -38,10 +39,28 @@ bot:
 token:
   - 284522356:10235467:xxxxxxx:xxxxxxxxx:1:0
 
-```  
-nginx配置  
 ```
-#放配置文件的地方  
+##### 喵崽实现  
+  总体思路：依赖切换到凉菜1.0.4+版本的qq-official-bot记得配置文件读写自行修改  
+  关于消息冲突推送问题请参阅[链接](https://github.com/zhinjs/qq-official-bot/pull/77) ，截至25-4-22 建议  
+  ```  
+  /Miao-Yunzai/plugins/Lain-plugin/node_modules/qq-official-bot/lib/receivers下function webhookHandler的case constans_1.OpCode.DISPATCH:
+  ```
+  修改为
+  ```  
+case constans_1.OpCode.DISPATCH:
+             this.emit('packet', data);
+             return res.writeHead(200).end();
+``` 
+#### nginx配置  
+    理由：
+      1.便于异构适配器接入，提升负载均衡、容灾能力.  
+      2.避免直接使用某适配器的证书不兼容问题.
+      3.还没想好.  
+   示例配置文件： 
+   [![](https://mermaid.ink/img/pako:eNqdlG1P01AUx7_KzSUkI5bSlXVb-4I3ajQxSJM1wZi9qetla2At3nWKEhKYgo88LEwTDUiMW8QHJCQGlYL7Muvt9i28bfeEmwnzvtq95_875396z-4iTJkaghLMobt5ZKTQFV1NYzWbNABd8yq29JQ-rxoWUGSg5oDiaehOnlOtGRP30d28dssT3kzrxgII3Ud3MqY5y6YxUq0IL7IsO9LLTKq6EedEzgOdtVX3rFj7adefF9zCLxDyAv0YHWMT02C4i7I3uqjwP6mrC5YPlV93Q0kj0A8PAzmj5hAIS-C6QvueDpqggUCgyKMTE5dooxKQpxIKGGt2CUKePNEsS-OerONTAo1XO86jzfrhD3JUCMQMcE4L5KDSj6EuB0Can1ACNfuDu7V2nnAPnjm_V5tESzpKuVG_C79LZ3vdOSmBEGLTLAN4jgNTN0YAGOrcjrOzTw7KjbdbzummUz4i3-2OBS-XIv-ViuxW6k8-A_8Ggb-G_PnoTcR481Wr7pKXK6S6TA9qdoVsVEjpGEwnei6Gl7w7SZipWWQBZ7PYWF5pX067O_pRPEOOfeJ-eTFWO6u6pX2aDNSr72hm0F7dDa6tk6_vAwO-o-6DnvR-9qA4TUuOn5KVw0A0BNyPduNNGWhITVn6PdVCbbDVTGcuBnHaGfqLeO0uMaDbNnreL53Jge16_7YLuw0K_I9ZSra89hMpcitW__bJLe05xTOnuE929uiEuo-PXXub7O5BBqaxrkHJwnnEwCzCWdXbwkUPTkIrg7IoCSX6U0Mzan7OSsKksUQx-rrcNs1si8RmPp2B0ow6l6O7_LxGLTSf1vYpRoaG8GUzb1hQ4iOinwRKi3ABSoLAhuOxWETg-PFxISqEGfgAShGRFWJRLsqJghDlRS62xMCHflWOFcPhcTEqxjk-LkQjEYGBSNMtE08G77v_zC_9AWPmVrc?type=png)](https://mermaid-live.nodejs.cn/edit#pako:eNqdlG1P01AUx7_KzSUkI5bSlXVb-4I3ajQxSJM1wZi9qetla2At3nWKEhKYgo88LEwTDUiMW8QHJCQGlYL7Muvt9i28bfeEmwnzvtq95_875396z-4iTJkaghLMobt5ZKTQFV1NYzWbNABd8yq29JQ-rxoWUGSg5oDiaehOnlOtGRP30d28dssT3kzrxgII3Ud3MqY5y6YxUq0IL7IsO9LLTKq6EedEzgOdtVX3rFj7adefF9zCLxDyAv0YHWMT02C4i7I3uqjwP6mrC5YPlV93Q0kj0A8PAzmj5hAIS-C6QvueDpqggUCgyKMTE5dooxKQpxIKGGt2CUKePNEsS-OerONTAo1XO86jzfrhD3JUCMQMcE4L5KDSj6EuB0Can1ACNfuDu7V2nnAPnjm_V5tESzpKuVG_C79LZ3vdOSmBEGLTLAN4jgNTN0YAGOrcjrOzTw7KjbdbzummUz4i3-2OBS-XIv-ViuxW6k8-A_8Ggb-G_PnoTcR481Wr7pKXK6S6TA9qdoVsVEjpGEwnei6Gl7w7SZipWWQBZ7PYWF5pX067O_pRPEOOfeJ-eTFWO6u6pX2aDNSr72hm0F7dDa6tk6_vAwO-o-6DnvR-9qA4TUuOn5KVw0A0BNyPduNNGWhITVn6PdVCbbDVTGcuBnHaGfqLeO0uMaDbNnreL53Jge16_7YLuw0K_I9ZSra89hMpcitW__bJLe05xTOnuE929uiEuo-PXXub7O5BBqaxrkHJwnnEwCzCWdXbwkUPTkIrg7IoCSX6U0Mzan7OSsKksUQx-rrcNs1si8RmPp2B0ow6l6O7_LxGLTSf1vYpRoaG8GUzb1hQ4iOinwRKi3ABSoLAhuOxWETg-PFxISqEGfgAShGRFWJRLsqJghDlRS62xMCHflWOFcPhcTEqxjk-LkQjEYGBSNMtE08G77v_zC_9AWPmVrc) 
+```
+#  放配置文件的地方  
 # 重定向 HTTP 到 HTTPS
 server {
     listen 80;
