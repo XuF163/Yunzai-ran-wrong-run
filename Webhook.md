@@ -130,7 +130,10 @@ server {
         internal; # 关键：使其成为内部 location,虽然连接的是外网主机
 
         # 代理到外部 HTTP 服务
-        proxy_pass http://ip:8090/webhook;
+       # proxy_pass http://ip:8090/webhook;
+       #那我问你，有ddns为什么不用？
+        set $dynamic_backend_host "ddns.xxxx.xyz:8090";
+	       proxy_pass http://$dynamic_backend_host/webhook;
 
         # --- 重要: 为外部目标设置正确的 Host Header ---
         # $proxy_host 会自动使用 proxy_pass 中的主机名或 IP 和端口
